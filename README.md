@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/codat.svg)](https://badge.fury.io/js/codat)
+
 # Codat.js
 
 Node.js module for accessing the Codat Accounting Data API
