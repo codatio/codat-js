@@ -10,6 +10,9 @@ For more information on Codat see [www.codat.io](https://www.codat.io)
 var codat = require("codat");
 
 var apiKey = '<YOUR API KEY HERE>';
+// Use codat.uat for UAT environment
+// Use codat.production for Production environment
+
 var codatApi = codat.uat(apiKey);
 // Fetch list of all linked companies
 codatApi.get('companies')

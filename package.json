@@ -1,8 +1,8 @@
 {
   "name": "codat",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Client Library for Codat accounting data API",
-  "main": "index.js",
+  "main": "codat.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
