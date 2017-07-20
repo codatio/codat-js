@@ -1,0 +1,22 @@
+{
+  "name": "codat",
+  "version": "0.2.0",
+  "description": "Client Library for Codat accounting data API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "codat",
+    "accounting",
+    "data",
+    "api"
+  ],
+  "author": "Codat <support@codat.io> (https://www.codat.io)",
+  "license": "ISC",
+  "dependencies": {
+    "btoa": "^1.1.2",
+    "request": "^2.34",
+    "request-promise": "^4.2.1"
+  }
+}
