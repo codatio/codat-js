@@ -1,0 +1,6 @@
+test
+node_modules
+.gitignore
+.travis.yml
+.babelrc
+rollup.config.js
