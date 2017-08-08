@@ -1,5 +1,5 @@
-import request from 'request-promise'
-import btoa from 'btoa'
+const request = require('request-promise')
+const btoa = require('btoa')
 
 const constants = {
   COMPANIES: 'companies',
@@ -58,18 +58,20 @@ class Api {
   }
 }
 
-export class AddCompany {
+class AddCompany {
   constructor (name, platformType) {
     this.name = name
     this.platformType = platformType
   }
 }
+exports.AddCompany = AddCompany
 
-export class UpdateCompanySettings {
+class UpdateCompanySettings {
   constructor (offlineConnectorInstall) {
     this.offlineConnectorInstall = offlineConnectorInstall
   }
 }
+exports.UpdateCompanySettings = UpdateCompanySettings
 
 class CodatApiClient {
   constructor (baseUrl, apiKey) {
