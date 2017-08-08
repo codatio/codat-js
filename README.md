@@ -1,37 +1,128 @@
-[![npm version](https://badge.fury.io/js/codat.svg)](https://badge.fury.io/js/codat)
+[![npm version](https://badge.fury.io/js/codat.svg)](https://badge.fury.io/js/codat) [![Travis Build Status](https://travis-ci.org/codatio/codat-js.svg?branch=master)](https://travis-ci.org/codatio/codat-js) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-# Codat.js
+# codat.js
 
-Node.js module for accessing the Codat Accounting Data API
+[1. Installation](#1)<br/>
+[2. Usage](#2)<br/>
+[2.1 Building an API client](#21)<br/>
+[2.2 Interacting with companies](#22)<br/>
+[2.3 Using company data query objects](#23)<br/>
+[2.4 Using the company data client](#24)
+
+## <a name="1"></a> 1. Installation
+
+Node module for accessing the Codat Accounting Data API from your node applications.
+
+You can install this package using the following command:
+
+`npm install --save codat`
 
 For more information on Codat see [www.codat.io](https://www.codat.io)
 
-### Usage Example
+## <a name="2"></a> 2. Usage
+
+The codat library is written in idiomatic ES6 this is to support the use of modern features and tooling to make your life as a developer easier. 
+If you are running your application on a platfrom that does not support this version of Javascript, you will need to use additional tools to compile 
+the source code.
+
+We use a tool called [Babel](https://babeljs.io/) at Codat and can highly recommend it.
+
+Please refer to the tests in the project, they document the usage of most components in the library.
+
+### <a name="21"></a> 2.1 API client
+
+The API client is a handy object that exposes useful functionality from the Codat public API, as well as helping you make queries against data for linked companies.
 
 ```javascript
-var codat = require("codat");
+// Import the module just like any other node dependancy.
+import codat from 'codat';
 
 var apiKey = '<YOUR API KEY HERE>';
-// Use codat.uat for UAT environment
-// Use codat.production for Production environment
 
-var codatApi = codat.uat(apiKey);
+// Use codat.uat for UAT environment.
+var codatApiUat = codat.uat(apiKey);
+
+var codatApi = codat.apiClient(codat.constants.UAT)(apiKey);
+
+// Use whichever method suits your build pipleine the best.
+codatApiUat === codatApi;
+
+// Use codat.production for Production environment.
+var codatApiUat = codat.production(apiKey);
+
+var codatApi = codat.apiClient(codat.constants.PRODUCTION)(apiKey);
+
+// The common datasets are listed in constant data.
+var datasets = codat.constants.datasets;
+```
+
+### <a name="22"></a> 2.2 Interacting with companies
+
+When you want to intereact directly with your linked companies you can use the helper method exposed by the API client.
+
+This set of features allows you to:
+
+1. `addCompany` - Add companies.
+2. `removeCompany` - Remove companies.
+2. `updateCompany` - Update companies.
+3. `getCompany` - Get information about a specific company.
+4. `getCompanies` - Query for all currently linked companies.
+
+```javascript
+// Add a new company
+codatApi
+    .addCompany(new AddCompany('My Company', 'xero'))
+    .then(newCompany => console.log(newCompany.id));
+
 // Fetch list of all linked companies
-codatApi.get('companies')
-    .then(response => response.companies.forEach(r => console.log(r.name)))
-    .then(() => {
-        // Fetch data for single linked company
-        var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
+codatApi
+    .getCompanies()
+    .then(response => response.companies.forEach(r => console.log(r.name)));
+```
 
-        var companyClient = codatApi.companyDataClient(companyId);
-        // Fetch monthly balance sheet for last 3 months
-        return companyClient.get('financials/balanceSheet', {
-            periodLength: 1,
-            periodsToCompare: 3
-        })
-    })
+### <a name="23"></a> 2.3 Using company data query objects
+
+When you want to get hold of data for a specific company you can use one of the given query objects. 
+These query objects make building reuseable queries much easier as they specify the specific parameters for filters that you might want to use.
+
+```javascript
+import { BalanceSheetQuery } from 'codat-queries';
+
+var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
+
+// Build a reusable query object. 
+// The query objects help you specify any query parameters.
+var balanceSheetQuery = new BalanceSheetQuery(companyId, 1, 3, new Date());
+
+// Run the query using your codatApi client.
+balanceSheetQuery
+    .run(codatApi)
     .then(response => {
         // Display net assets for each period
-        response.reports.forEach(r => console.log(r.date + ' - Net Assets: '+ response.currency + ' ' + r.netAssets));
+        response.reports.forEach(r => console.log(`${r.date} - Net Assets: ${response.currency} ${r.netAssets}`));
     });
+```
+
+### <a name="24"></a> 2.4 Using the company data client
+
+You can use the company data api client to build your own queries without the query objects and specifiy the arguments yourself. 
+
+In fact this is what the query objects use under the hood! 
+
+```javascript
+var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
+
+// You can also roll your own queries to the data api.
+// Be aware some query parameters are not availble on all endpoints.
+var companyClient = codatApi.companyDataClient(companyId);
+
+// You can do this with a new company data client from the api client
+companyClient.get(datasets.BALANCE_SHEET, {
+    periodLength: 1,
+    periodsToCompare: 3
+})
+.then(response => {
+    // Display net assets for each period
+    response.reports.forEach(r => console.log(`${r.date} - Net Assets: ${response.currency} ${r.netAssets}`));
+});
 ```
