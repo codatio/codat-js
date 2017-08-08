@@ -1,6 +1,6 @@
 {
   "name": "codat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Client Library for Codat accounting data API",
   "main": "codat.js",
   "scripts": {

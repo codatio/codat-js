@@ -1,4 +1,4 @@
-import { constants } from './codat'
+const constants = require('./codat').constants
 
 class CodatQuery {
   constructor (companyId) {
@@ -30,19 +30,21 @@ class FinancialQuery extends CodatQuery {
   }
 }
 
-export class BalanceSheetQuery extends FinancialQuery {
+class BalanceSheetQuery extends FinancialQuery {
   getResource () {
     return constants.datasets.BALANCE_SHEET
   }
 }
+exports.BalanceSheetQuery = BalanceSheetQuery
 
-export class ProfitAndLossQuery extends FinancialQuery {
+class ProfitAndLossQuery extends FinancialQuery {
   getResource () {
     return constants.datasets.PROFIT_AND_LOSS
   }
 }
+exports.ProfitAndLossQuery = ProfitAndLossQuery
 
-export class FlexibleQuery extends CodatQuery {
+class FlexibleQuery extends CodatQuery {
   constructor (companyId, queryString) {
     super(companyId)
     this.queryString = queryString
@@ -55,7 +57,7 @@ export class FlexibleQuery extends CodatQuery {
   }
 }
 
-export class AccountsQuery extends CodatQuery {
+class AccountsQuery extends CodatQuery {
   generateArgs () {
     return { }
   }
@@ -64,51 +66,60 @@ export class AccountsQuery extends CodatQuery {
     return constants.datasets.CHART_OF_ACCOUNTS
   }
 }
+exports.AccountsQuery = AccountsQuery
 
-export class BillsQuery extends FlexibleQuery {
+class BillsQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.BILLS
   }
 }
+exports.BillsQuery = BillsQuery
 
-export class CreditNotesQuery extends FlexibleQuery {
+class CreditNotesQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.CREDIT_NOTES
   }
 }
+exports.CreditNotesQuery = CreditNotesQuery
 
-export class InvoicesQuery extends FlexibleQuery {
+class InvoicesQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.INVOICES
   }
 }
+exports.InvoicesQuery = InvoicesQuery
 
-export class CustomersQuery extends FlexibleQuery {
+class CustomersQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.CUSTOMERS
   }
 }
+exports.CustomersQuery = CustomersQuery
 
-export class SuppliersQuery extends FlexibleQuery {
+class SuppliersQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.SUPPLIERS
   }
 }
+exports.SuppliersQuery = SuppliersQuery
 
-export class PaymentsQuery extends FlexibleQuery {
+class PaymentsQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.PAYMENTS
   }
 }
+exports.PaymentsQuery = PaymentsQuery
 
-export class CompanyQuery extends FlexibleQuery {
+class CompanyQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.COMPANY
   }
 }
+exports.CompanyQuery = CompanyQuery
 
-export class BankStatementsQuery extends FlexibleQuery {
+class BankStatementsQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.BANK_STATEMENTS
   }
 }
+exports.BankStatementsQuery = BankStatementsQuery
