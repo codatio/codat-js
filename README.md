@@ -27,7 +27,7 @@ the source code.
 
 We use a tool called [Babel](https://babeljs.io/) at Codat and can highly recommend it.
 
-Please refer to the tests in the project, they document the usage of most components in the library.
+Please refer to the tests in the project, they document the usage of the components found in the library.
 
 ### <a name="21"></a> 2.1 API client
 
@@ -35,7 +35,7 @@ The API client is a handy object that exposes useful functionality from the Coda
 
 ```javascript
 // Import the module just like any other node dependancy.
-import codat from 'codat';
+import { api as codat } from 'codat';
 
 var apiKey = '<YOUR API KEY HERE>';
 
