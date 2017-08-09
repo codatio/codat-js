@@ -16,7 +16,11 @@ const constants = {
     PROFIT_AND_LOSS: 'financials/profitAndLoss',
     SUPPLIERS: 'suppliers',
     BANK_STATEMENTS: 'bankStatements',
-    COMPANY: 'company'
+    COMPANY: 'info'
+  },
+  refresh: {
+    ALL: 'all',
+    QUEUE: 'queue'
   }
 }
 exports.constants = constants

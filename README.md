@@ -126,3 +126,33 @@ companyClient.get(datasets.BALANCE_SHEET, {
     response.reports.forEach(r => console.log(`${r.date} - Net Assets: ${response.currency} ${r.netAssets}`));
 });
 ```
+
+### <a name="25"></a> 2.5 Refreshing data
+
+If you need to refresh the data for a given company on demand, you cann use the provided refresh extensions and run them using the `codatApiClient` just like you can with the queries.
+
+NOTE: Please be aware this functionality is not currently supported by Codat's 'Sage 50' platform connection.
+
+```javascript
+import { RefreshAllDatasets } from 'codat-refresh';
+
+var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
+
+// Build a reusable refresh object.
+var refreshAllDatasets = new RefreshAllDatasets(companyId);
+
+// Run the query using your codatApi client.
+refreshAllDatasets
+    .run(codatApi)
+    .then(response => {
+        // You can now long pool the status endpoint for success.
+        return codatApi.getCompanyDataStatus(companyId);    
+    })
+    .then(statuses => {
+        // The statuses object is a dictionary of datasets to their 
+        // refresh status.
+        if (statuses[constants.datasets.INVOICES] === 'Complete') {
+            // Invoices successfully refreshed!
+        }
+    });
+```

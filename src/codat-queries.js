@@ -1,5 +1,7 @@
 const constants = require('./codat').constants
 
+// Query company
+
 class CodatQuery {
   constructor (companyId) {
     this.companyId = companyId
