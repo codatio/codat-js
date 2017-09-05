@@ -7,7 +7,6 @@ import {
 
 describe('Refresh', () => {
   const COMPANY_ID = 'COMPANY_ID'
-  const API_CLIENT = uat('')
 
   let REFRESH_UNDER_TEST = null
 

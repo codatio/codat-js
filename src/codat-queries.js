@@ -91,6 +91,22 @@ class InvoicesQuery extends FlexibleQuery {
 }
 exports.InvoicesQuery = InvoicesQuery
 
+class InvoicePdfQuery extends CodatQuery {
+  constructor (companyId, invoiceId) {
+    super(companyId)
+    this.invoiceId = invoiceId
+  }
+
+  getResource () {
+    return `${constants.datasets.INVOICES}/${this.invoiceId}/pdf`
+  }
+
+  generateArgs () {
+    return {}
+  }
+}
+exports.InvoicePdfQuery = InvoicePdfQuery
+
 class CustomersQuery extends FlexibleQuery {
   getResource () {
     return constants.datasets.CUSTOMERS
