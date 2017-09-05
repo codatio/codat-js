@@ -1,6 +1,6 @@
 {
   "name": "codat",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "Client Library for Codat accounting data API",
   "main": "codat.js",
   "scripts": {
@@ -37,5 +37,8 @@
     "rollup-plugin-uglify": "^2.0.1",
     "should": "^11.2.1",
     "standard": "^10.0.3"
+  },
+  "standard" : {
+    "globals": [ "it", "describe", "beforeEach", "API_CLIENT" ]
   }
 }

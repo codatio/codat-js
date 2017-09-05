@@ -5,6 +5,7 @@ import {
     ProfitAndLossQuery,
     AccountsQuery,
     InvoicesQuery,
+    InvoicePdfQuery,
     CreditNotesQuery,
     CustomersQuery,
     SuppliersQuery,
@@ -15,7 +16,7 @@ import {
 
 describe('Queries', () => {
   const COMPANY_ID = 'COMPANY_ID'
-  const API_CLIENT = uat('')
+  const INVOICE_ID = 'INVOICE_ID'
 
   let QUERY_UNDER_TEST = null
 
@@ -110,6 +111,33 @@ describe('Queries', () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
                         COMPANY_ID)
+        })
+
+        it(`should direct to ${queryName} resource`, () => {
+          QUERY_UNDER_TEST.getResource().should.be.exactly(resourceRoute)
+        })
+
+        it(`should provide ${queryName} argument object`, () => {
+          QUERY_UNDER_TEST.generateArgs().should.eql({ })
+        })
+      })
+    })
+  })
+
+  describe('basic', () => {
+    [
+        [InvoicePdfQuery, `${constants.datasets.INVOICES}/${INVOICE_ID}/pdf`]
+    ].forEach(queryTestParameters => {
+      const queryName = queryTestParameters[0].name
+      const QueryConstructor = queryTestParameters[0]
+      const resourceRoute = queryTestParameters[1]
+
+      describe(queryName, () => {
+        beforeEach(() => {
+          QUERY_UNDER_TEST = new QueryConstructor(
+              COMPANY_ID,
+              INVOICE_ID
+            )
         })
 
         it(`should direct to ${queryName} resource`, () => {
