@@ -1,9 +1,8 @@
-import { uat, production, proxy, apiClient } from '../src/codat'
+import { uat, production, apiClient } from '../src/codat'
 import should from 'should'
 
 describe('Api client providers', () => {
   const TEST_API_KEY = 'TEST_API_KEY'
-  const TEST_PROXY_URL = 'https://proxy.codat.io'
   let API_UNDER_TEST = null
 
   describe('api client selctor', () => {
