@@ -5,7 +5,6 @@ const constants = {
   COMPANIES: 'companies',
   UAT: 'uat',
   PRODUCTION: 'production',
-  PROXY: 'proxy',
   datasets: {
     BALANCE_SHEET: 'financials/balanceSheet',
     BILLS: 'bills',
@@ -137,16 +136,11 @@ exports.uat = uat
 const production = (apiKey) => new CodatApiClient('https://api.codat.io', apiKey)
 exports.production = production
 
-const proxy = (proxyUrl, apiKey) => new CodatApiClient(proxyUrl, apiKey)
-exports.proxy = proxy
-
 exports.apiClient = (environment) => {
   switch (environment) {
     case constants.UAT:
       return uat
     case constants.PRODUCTION:
       return production
-    case constants.PROXY:
-      return proxy
   }
 }
