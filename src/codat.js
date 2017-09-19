@@ -130,6 +130,8 @@ class CodatApiClient {
   }
 }
 
+exports.CodatApiClient = CodatApiClient
+
 const uat = (apiKey) => new CodatApiClient('https://api-uat.codat.io', apiKey)
 exports.uat = uat
 
