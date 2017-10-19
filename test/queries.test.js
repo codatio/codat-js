@@ -110,7 +110,7 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-                        COMPANY_ID)
+              COMPANY_ID)
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -124,7 +124,7 @@ describe('Queries', () => {
     })
   })
 
-  describe('basic', () => {
+  describe('basic with id', () => {
     [
         [InvoicePdfQuery, `${constants.datasets.INVOICES}/${INVOICE_ID}/pdf`]
     ].forEach(queryTestParameters => {
