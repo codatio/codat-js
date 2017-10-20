@@ -54,7 +54,7 @@ class Api {
       qs: args,
       json: true,
       headers: {
-        Authorization: 'Basic ' + btoa(this.__apiKey)
+        Authorization: `Basic ${btoa(this.__apiKey)}`
       },
       method: method,
       body: body
@@ -112,17 +112,17 @@ class CodatApiClient {
   }
 
   getCompanySettings (companyId) {
-    return this.companiesApi.get(this.__companiesBaseUrl(companyId) + '/settings')
+    return this.companiesApi.get(`${this.__companiesBaseUrl(companyId)}/settings`)
   }
 
   updateCompanySettings (companyId, offlineConnectorInstall) {
     return this.companiesApi.put(
-      this.__companiesBaseUrl(companyId) + '/settings', null,
+      `${this.__companiesBaseUrl(companyId)}/settings`, null,
       companyId instanceof UpdateCompanySettings ? companyId : new UpdateCompanySettings(offlineConnectorInstall))
   }
 
   getCompanyDataStatus (companyId) {
-    return this.companiesApi.get(this.__companiesBaseUrl(companyId) + '/dataStatus')
+    return this.companiesApi.get(`${this.__companiesBaseUrl(companyId)}/dataStatus`)
   }
 
   companyDataClient (companyId) {

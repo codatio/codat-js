@@ -22,7 +22,8 @@ exports.RefreshAllDatasets = RefreshAllDatasets
 class RefreshDataset extends CodatSync {
   constructor (companyId, datasetName) {
     super(companyId)
-    this.datasetName = datasetName
+    // BUG: naming for api and datatype is different.
+    this.datasetName = datasetName === constants.datasets.COMPANY ? 'company' : datasetName;
   }
 
   getResource () { return `${constants.refresh.QUEUE}/${this.datasetName}` }

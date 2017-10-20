@@ -15,7 +15,7 @@ describe('Refresh', () => {
       REFRESH_UNDER_TEST = new RefreshAllDatasets(COMPANY_ID)
     })
 
-    it('should mapp to the right resource', () => {
+    it('should map to the right resource', () => {
       REFRESH_UNDER_TEST.getResource().should.be.exactly(constants.refresh.ALL)
     })
   })
@@ -27,7 +27,20 @@ describe('Refresh', () => {
       REFRESH_UNDER_TEST = new RefreshDataset(COMPANY_ID, DATASET_NAME)
     })
 
-    it('should mapp to the right resource', () => {
+    it('should map to the right resource', () => {
+      REFRESH_UNDER_TEST.getResource().should.be.exactly(`${constants.refresh.QUEUE}/${DATASET_NAME}`)
+    })
+  })
+  
+  describe('company/info dataset', () => {
+    const API_NAME = 'info'
+    const DATASET_NAME = 'company'
+
+    beforeEach(() => {
+      REFRESH_UNDER_TEST = new RefreshDataset(COMPANY_ID, API_NAME)
+    })
+
+    it('should mapp to the right resource, with correct data type name', () => {
       REFRESH_UNDER_TEST.getResource().should.be.exactly(`${constants.refresh.QUEUE}/${DATASET_NAME}`)
     })
   })
