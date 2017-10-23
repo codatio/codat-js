@@ -31,7 +31,7 @@ describe('Refresh', () => {
       REFRESH_UNDER_TEST.getResource().should.be.exactly(`${constants.refresh.QUEUE}/${DATASET_NAME}`)
     })
   })
-  
+
   describe('company/info dataset', () => {
     const API_NAME = 'info'
     const DATASET_NAME = 'company'
