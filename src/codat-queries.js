@@ -1,7 +1,6 @@
 const constants = require('./codat').constants
 
 // Query company
-
 class CodatQuery {
   constructor (companyId) {
     this.companyId = companyId
@@ -59,6 +58,22 @@ class FlexibleQuery extends CodatQuery {
   }
 }
 
+class FlexiblePagedQuery extends FlexibleQuery {
+  constructor (companyId, queryString, pageNumber, pageSize) {
+    super(companyId, queryString)
+    this.pageNumber = pageNumber
+    this.pageSize = pageSize
+  }
+
+  generateArgs () {
+    return {
+      query: this.queryString,
+      page: this.pageNumber,
+      pageSize: this.pageSize
+    }
+  }
+}
+
 class AccountsQuery extends CodatQuery {
   generateArgs () {
     return { }
@@ -70,21 +85,21 @@ class AccountsQuery extends CodatQuery {
 }
 exports.AccountsQuery = AccountsQuery
 
-class BillsQuery extends FlexibleQuery {
+class BillsQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.datasets.BILLS
   }
 }
 exports.BillsQuery = BillsQuery
 
-class CreditNotesQuery extends FlexibleQuery {
+class CreditNotesQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.datasets.CREDIT_NOTES
   }
 }
 exports.CreditNotesQuery = CreditNotesQuery
 
-class InvoicesQuery extends FlexibleQuery {
+class InvoicesQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.datasets.INVOICES
   }
@@ -107,35 +122,39 @@ class InvoicePdfQuery extends CodatQuery {
 }
 exports.InvoicePdfQuery = InvoicePdfQuery
 
-class CustomersQuery extends FlexibleQuery {
+class CustomersQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.datasets.CUSTOMERS
   }
 }
 exports.CustomersQuery = CustomersQuery
 
-class SuppliersQuery extends FlexibleQuery {
+class SuppliersQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.datasets.SUPPLIERS
   }
 }
 exports.SuppliersQuery = SuppliersQuery
 
-class PaymentsQuery extends FlexibleQuery {
+class PaymentsQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.datasets.PAYMENTS
   }
 }
 exports.PaymentsQuery = PaymentsQuery
 
-class CompanyQuery extends FlexibleQuery {
+class CompanyQuery extends CodatQuery {
   getResource () {
     return constants.datasets.COMPANY
+  }
+
+  generateArgs () {
+    return { }
   }
 }
 exports.CompanyQuery = CompanyQuery
 
-class BankStatementsQuery extends FlexibleQuery {
+class BankStatementsQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.datasets.BANK_STATEMENTS
   }

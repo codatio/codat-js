@@ -63,7 +63,9 @@ describe('Queries', () => {
     // you are querying. Each data type therefore must have a query string
     // that matches it's values and properties, the string below is only
     // representative. Supported value types are numbers, strings, and datetimes.
-    const QUERY_STRING = "Property1<100,Property2>100,Property3='value'";
+    const QUERY_STRING = "Property1<100,Property2>100,Property3='value'"
+    const PAGE_SIZE = 1000
+    const PAGE_NUMBER = 1;
 
     [
       [InvoicesQuery, constants.datasets.INVOICES],
@@ -71,7 +73,6 @@ describe('Queries', () => {
       [CustomersQuery, constants.datasets.CUSTOMERS],
       [SuppliersQuery, constants.datasets.SUPPLIERS],
       [BillsQuery, constants.datasets.BILLS],
-      [CompanyQuery, constants.datasets.COMPANY],
       [PaymentsQuery, constants.datasets.PAYMENTS],
       [BankStatementsQuery, constants.datasets.BANK_STATEMENTS]
     ].forEach(queryTestParameters => {
@@ -83,7 +84,9 @@ describe('Queries', () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
                         COMPANY_ID,
-                        QUERY_STRING)
+                        QUERY_STRING,
+                        PAGE_NUMBER,
+                        PAGE_SIZE)
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -92,7 +95,9 @@ describe('Queries', () => {
 
         it(`should provide ${queryName} argument object`, () => {
           QUERY_UNDER_TEST.generateArgs().should.eql({
-            query: QUERY_STRING
+            query: QUERY_STRING,
+            page: PAGE_NUMBER,
+            pageSize: PAGE_SIZE
           })
         })
       })
@@ -101,7 +106,8 @@ describe('Queries', () => {
 
   describe('basic', () => {
     [
-      [AccountsQuery, constants.datasets.CHART_OF_ACCOUNTS]
+      [AccountsQuery, constants.datasets.CHART_OF_ACCOUNTS],
+      [CompanyQuery, constants.datasets.COMPANY]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
