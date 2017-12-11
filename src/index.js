@@ -1,5 +1,6 @@
 import * as queries from 'codat-queries'
 import * as refresh from 'codat-refresh'
+import * as rules from 'codat-rules'
 
 import {
     uat,
@@ -7,10 +8,7 @@ import {
     apiClient,
     CodatApiClient,
     UpdateCompanySettings,
-    AddCompany,
-    constants } from 'codat'
-
-exports.constants = constants
+    AddCompany } from 'codat'
 
 exports.uat = uat
 exports.production = production
@@ -22,3 +20,4 @@ exports.AddCompany = AddCompany
 
 exports.queries = queries
 exports.refresh = refresh
+exports.rules = rules

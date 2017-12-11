@@ -1,6 +1,7 @@
 import should from 'should'
-import { uat, constants } from '../src/codat'
+import { uat } from '../src/codat'
 import {
+    constants,
     RefreshAllDatasets,
     RefreshDataset
  } from '../src/codat-refresh'
@@ -16,7 +17,7 @@ describe('Refresh', () => {
     })
 
     it('should map to the right resource', () => {
-      REFRESH_UNDER_TEST.getResource().should.be.exactly(constants.refresh.ALL)
+      REFRESH_UNDER_TEST.getResource().should.be.exactly(constants.ALL)
     })
   })
 
@@ -28,7 +29,7 @@ describe('Refresh', () => {
     })
 
     it('should map to the right resource', () => {
-      REFRESH_UNDER_TEST.getResource().should.be.exactly(`${constants.refresh.QUEUE}/${DATASET_NAME}`)
+      REFRESH_UNDER_TEST.getResource().should.be.exactly(`${constants.QUEUE}/${DATASET_NAME}`)
     })
   })
 
@@ -41,7 +42,7 @@ describe('Refresh', () => {
     })
 
     it('should mapp to the right resource, with correct data type name', () => {
-      REFRESH_UNDER_TEST.getResource().should.be.exactly(`${constants.refresh.QUEUE}/${DATASET_NAME}`)
+      REFRESH_UNDER_TEST.getResource().should.be.exactly(`${constants.QUEUE}/${DATASET_NAME}`)
     })
   })
 })

@@ -4,24 +4,7 @@ const btoa = require('btoa')
 const constants = {
   COMPANIES: 'companies',
   UAT: 'uat',
-  PRODUCTION: 'production',
-  datasets: {
-    BALANCE_SHEET: 'financials/balanceSheet',
-    BILLS: 'bills',
-    CHART_OF_ACCOUNTS: 'accounts',
-    CREDIT_NOTES: 'creditNotes',
-    CUSTOMERS: 'customers',
-    INVOICES: 'invoices',
-    PAYMENTS: 'payments',
-    PROFIT_AND_LOSS: 'financials/profitAndLoss',
-    SUPPLIERS: 'suppliers',
-    BANK_STATEMENTS: 'bankStatements',
-    COMPANY: 'info'
-  },
-  refresh: {
-    ALL: 'all',
-    QUEUE: 'queue'
-  }
+  PRODUCTION: 'production'
 }
 exports.constants = constants
 
@@ -87,6 +70,10 @@ class CodatApiClient {
 
   __companiesBaseUrl (companyId) {
     return `${constants.COMPANIES}/${companyId}`
+  }
+
+  __companyClient () {
+    return this.companiesApi
   }
 
   getCompanies () {
