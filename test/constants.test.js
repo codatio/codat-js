@@ -6,7 +6,15 @@ describe('Constants', () => {
     should.exist(constants)
   })
 
-  it('should export datasets constants obect', () => {
-    should.exist(constants.datasets)
+  it('should export companies constant', () => {
+    should.exist(constants.COMPANIES)
+  })
+
+  it('should export uat constant', () => {
+    should.exist(constants.UAT)
+  })
+
+  it('should export production constant', () => {
+    should.exist(constants.PRODUCTION)
   })
 })

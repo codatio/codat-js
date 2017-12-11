@@ -4,24 +4,7 @@ const btoa = require('btoa')
 const constants = {
   COMPANIES: 'companies',
   UAT: 'uat',
-  PRODUCTION: 'production',
-  datasets: {
-    BALANCE_SHEET: 'financials/balanceSheet',
-    BILLS: 'bills',
-    CHART_OF_ACCOUNTS: 'accounts',
-    CREDIT_NOTES: 'creditNotes',
-    CUSTOMERS: 'customers',
-    INVOICES: 'invoices',
-    PAYMENTS: 'payments',
-    PROFIT_AND_LOSS: 'financials/profitAndLoss',
-    SUPPLIERS: 'suppliers',
-    BANK_STATEMENTS: 'bankStatements',
-    COMPANY: 'info'
-  },
-  refresh: {
-    ALL: 'all',
-    QUEUE: 'queue'
-  }
+  PRODUCTION: 'production'
 }
 exports.constants = constants
 
@@ -82,47 +65,51 @@ class CodatApiClient {
     this.baseUrl = baseUrl
     this.apiKey = apiKey
 
-    this.companiesApi = new Api(baseUrl, apiKey)
+    this.clientsApi = new Api(baseUrl, apiKey)
   }
 
   __companiesBaseUrl (companyId) {
     return `${constants.COMPANIES}/${companyId}`
   }
 
+  __companyClient () {
+    return this.clientsApi
+  }
+
   getCompanies () {
-    return this.companiesApi.get(constants.COMPANIES)
+    return this.clientsApi.get(constants.COMPANIES)
   }
 
   addCompany (companyName, platformType) {
-    return this.companiesApi.post(
+    return this.clientsApi.post(
       constants.COMPANIES, null,
       companyName instanceof AddCompany ? companyName : new AddCompany(companyName, platformType))
   }
 
   getCompany (companyId) {
-    return this.companiesApi.get(this.__companiesBaseUrl(companyId))
+    return this.clientsApi.get(this.__companiesBaseUrl(companyId))
   }
 
   updateCompany (companyId, platformType) {
-    return this.companiesApi.put(this.__companiesBaseUrl(companyId), null, platformType)
+    return this.clientsApi.put(this.__companiesBaseUrl(companyId), null, platformType)
   }
 
   removeCompany (companyId) {
-    return this.companiesApi.delete(this.__companiesBaseUrl(companyId))
+    return this.clientsApi.delete(this.__companiesBaseUrl(companyId))
   }
 
   getCompanySettings (companyId) {
-    return this.companiesApi.get(`${this.__companiesBaseUrl(companyId)}/settings`)
+    return this.clientsApi.get(`${this.__companiesBaseUrl(companyId)}/settings`)
   }
 
   updateCompanySettings (companyId, offlineConnectorInstall) {
-    return this.companiesApi.put(
+    return this.clientsApi.put(
       `${this.__companiesBaseUrl(companyId)}/settings`, null,
       companyId instanceof UpdateCompanySettings ? companyId : new UpdateCompanySettings(offlineConnectorInstall))
   }
 
   getCompanyDataStatus (companyId) {
-    return this.companiesApi.get(`${this.__companiesBaseUrl(companyId)}/dataStatus`)
+    return this.clientsApi.get(`${this.__companiesBaseUrl(companyId)}/dataStatus`)
   }
 
   companyDataClient (companyId) {

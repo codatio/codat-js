@@ -1,6 +1,7 @@
 import should from 'should'
-import { uat, constants } from '../src/codat'
+import { uat } from '../src/codat'
 import {
+    constants,
     BalanceSheetQuery,
     ProfitAndLossQuery,
     AccountsQuery,
@@ -26,8 +27,8 @@ describe('Queries', () => {
     const START_MONTH = new Date();
 
     [
-      [BalanceSheetQuery, constants.datasets.BALANCE_SHEET],
-      [ProfitAndLossQuery, constants.datasets.PROFIT_AND_LOSS]
+      [BalanceSheetQuery, constants.BALANCE_SHEET],
+      [ProfitAndLossQuery, constants.PROFIT_AND_LOSS]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -68,13 +69,13 @@ describe('Queries', () => {
     const PAGE_NUMBER = 1;
 
     [
-      [InvoicesQuery, constants.datasets.INVOICES],
-      [CreditNotesQuery, constants.datasets.CREDIT_NOTES],
-      [CustomersQuery, constants.datasets.CUSTOMERS],
-      [SuppliersQuery, constants.datasets.SUPPLIERS],
-      [BillsQuery, constants.datasets.BILLS],
-      [PaymentsQuery, constants.datasets.PAYMENTS],
-      [BankStatementsQuery, constants.datasets.BANK_STATEMENTS]
+      [InvoicesQuery, constants.INVOICES],
+      [CreditNotesQuery, constants.CREDIT_NOTES],
+      [CustomersQuery, constants.CUSTOMERS],
+      [SuppliersQuery, constants.SUPPLIERS],
+      [BillsQuery, constants.BILLS],
+      [PaymentsQuery, constants.PAYMENTS],
+      [BankStatementsQuery, constants.BANK_STATEMENTS]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -106,8 +107,8 @@ describe('Queries', () => {
 
   describe('basic', () => {
     [
-      [AccountsQuery, constants.datasets.CHART_OF_ACCOUNTS],
-      [CompanyQuery, constants.datasets.COMPANY]
+      [AccountsQuery, constants.CHART_OF_ACCOUNTS],
+      [CompanyQuery, constants.COMPANY]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -132,7 +133,7 @@ describe('Queries', () => {
 
   describe('basic with id', () => {
     [
-        [InvoicePdfQuery, `${constants.datasets.INVOICES}/${INVOICE_ID}/pdf`]
+        [InvoicePdfQuery, `${constants.INVOICES}/${INVOICE_ID}/pdf`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
