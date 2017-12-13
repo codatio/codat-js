@@ -1,4 +1,10 @@
-const constants = require('./codat').constants
+const dataSetConstants = require('./codat-queries').constants
+
+const constants = {
+  ALL: 'all',
+  QUEUE: 'queue'
+}
+exports.constants = constants
 
 /// Sync company.
 
@@ -15,7 +21,7 @@ class CodatSync {
 }
 
 class RefreshAllDatasets extends CodatSync {
-  getResource () { return constants.refresh.ALL }
+  getResource () { return constants.ALL }
 }
 exports.RefreshAllDatasets = RefreshAllDatasets
 
@@ -23,9 +29,9 @@ class RefreshDataset extends CodatSync {
   constructor (companyId, datasetName) {
     super(companyId)
     // BUG: naming for api and datatype is different.
-    this.datasetName = datasetName === constants.datasets.COMPANY ? 'company' : datasetName
+    this.datasetName = datasetName === dataSetConstants.COMPANY ? 'company' : datasetName
   }
 
-  getResource () { return `${constants.refresh.QUEUE}/${this.datasetName}` }
+  getResource () { return `${constants.QUEUE}/${this.datasetName}` }
 }
 exports.RefreshDataset = RefreshDataset
