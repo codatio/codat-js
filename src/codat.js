@@ -40,7 +40,8 @@ class Api {
         Authorization: `Basic ${btoa(this.__apiKey)}`
       },
       method: method,
-      body: body
+      body: body,
+      encoding: null
     }
   }
 }
