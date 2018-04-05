@@ -142,7 +142,7 @@ class InvoicePdfQuery extends CodatDataQuery {
   }
 
   generateArgs () {
-    return {}
+    return { }
   }
 }
 exports.InvoicePdfQuery = InvoicePdfQuery
