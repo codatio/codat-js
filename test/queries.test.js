@@ -13,7 +13,9 @@ import {
     BillsQuery,
     CompanyQuery,
     PaymentsQuery,
-    BankStatementsQuery } from '../src/codat-queries'
+    BankStatementsQuery,
+    ItemsQuery,
+    TaxRatesQuery } from '../src/codat-queries'
 
 describe('Queries', () => {
   const COMPANY_ID = 'COMPANY_ID'
@@ -75,7 +77,9 @@ describe('Queries', () => {
       [SuppliersQuery, constants.SUPPLIERS],
       [BillsQuery, constants.BILLS],
       [PaymentsQuery, constants.PAYMENTS],
-      [BankStatementsQuery, constants.BANK_STATEMENTS]
+      [BankStatementsQuery, constants.BANK_STATEMENTS],
+      [ItemsQuery, constants.ITEMS],
+      [TaxRatesQuery, constants.TAX_RATES]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
