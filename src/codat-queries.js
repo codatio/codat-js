@@ -2,6 +2,7 @@
 const constants = {
   BALANCE_SHEET: 'financials/balanceSheet',
   BILLS: 'bills',
+  BILL_PAYMENTS: 'billPayments',
   CHART_OF_ACCOUNTS: 'accounts',
   CREDIT_NOTES: 'creditNotes',
   CUSTOMERS: 'customers',
@@ -10,7 +11,9 @@ const constants = {
   PROFIT_AND_LOSS: 'financials/profitAndLoss',
   SUPPLIERS: 'suppliers',
   BANK_STATEMENTS: 'bankStatements',
-  COMPANY: 'info'
+  COMPANY: 'info',
+  ITEMS: 'items',
+  TAX_RATES: 'taxRates'
 }
 exports.constants = constants
 
@@ -167,6 +170,20 @@ class PaymentsQuery extends FlexiblePagedQuery {
   }
 }
 exports.PaymentsQuery = PaymentsQuery
+
+class ItemsQuery extends FlexiblePagedQuery {
+  getResource () {
+    return constants.ITEMS
+  }
+}
+exports.ItemsQuery = ItemsQuery
+
+class TaxRatesQuery extends FlexiblePagedQuery {
+  getResource () {
+    return constants.TAX_RATES
+  }
+}
+exports.TaxRatesQuery = TaxRatesQuery
 
 class CompanyQuery extends CodatDataQuery {
   getResource () {
