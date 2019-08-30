@@ -36,6 +36,8 @@ The API client is a handy object that exposes useful functionality from the Coda
 ```javascript
 // Import the module just like any other node dependancy.
 import { api as codat } from 'codat';
+import { queries } from 'codat';
+import { refresh } from 'codat';
 
 var apiKey = '<YOUR API KEY HERE>';
 
@@ -53,7 +55,7 @@ var codatApiUat = codat.production(apiKey);
 var codatApi = codat.apiClient(codat.constants.PRODUCTION)(apiKey);
 
 // The common datasets are listed in constant data.
-var datasets = codat.constants.datasets;
+var datasets = queries.constants;
 ```
 
 ### <a name="22"></a> 2.2 Interacting with companies
@@ -86,13 +88,12 @@ When you want to get hold of data for a specific company you can use one of the 
 These query objects make building reuseable queries much easier as they specify the specific parameters for filters that you might want to use.
 
 ```javascript
-import { BalanceSheetQuery } from 'codat-queries';
 
 var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
 
 // Build a reusable query object. 
 // The query objects help you specify any query parameters.
-var balanceSheetQuery = new BalanceSheetQuery(companyId, 1, 3, new Date());
+var balanceSheetQuery = new queries.BalanceSheetQuery(companyId, 1, 3, new Date());
 
 // Run the query using your codatApi client.
 balanceSheetQuery
@@ -134,12 +135,11 @@ If you need to refresh the data for a given company on demand, you cann use the 
 NOTE: Please be aware this functionality is not currently supported by Codat's 'Sage 50' platform connection.
 
 ```javascript
-import { RefreshAllDatasets } from 'codat-refresh';
 
 var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
 
 // Build a reusable refresh object.
-var refreshAllDatasets = new RefreshAllDatasets(companyId);
+var refreshAllDatasets = new refresh.RefreshAllDatasets(companyId);
 
 // Run the query using your codatApi client.
 refreshAllDatasets
