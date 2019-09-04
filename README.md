@@ -35,7 +35,9 @@ The API client is a handy object that exposes useful functionality from the Coda
 
 ```javascript
 // Import the module just like any other node dependancy.
-import { api as codat } from 'codat';
+import { 
+    api as codat, 
+    queries as codatQueries } from 'codat';
 
 var apiKey = '<YOUR API KEY HERE>';
 
@@ -53,7 +55,7 @@ var codatApiUat = codat.production(apiKey);
 var codatApi = codat.apiClient(codat.constants.PRODUCTION)(apiKey);
 
 // The common datasets are listed in constant data.
-var datasets = codat.constants.datasets;
+var datasets = codatQueries.constants;
 ```
 
 ### <a name="22"></a> 2.2 Interacting with companies
@@ -69,6 +71,7 @@ This set of features allows you to:
 4. `getCompanies` - Query for all currently linked companies.
 
 ```javascript
+ // Please see section 2.1 on creating the codatApiClient 
 // Add a new company
 codatApi
     .addCompany(new AddCompany('My Company', 'xero'))
@@ -86,6 +89,7 @@ When you want to get hold of data for a specific company you can use one of the 
 These query objects make building reuseable queries much easier as they specify the specific parameters for filters that you might want to use.
 
 ```javascript
+ // Please see section 2.1 on creating the codatApiClient
 import { BalanceSheetQuery } from 'codat-queries';
 
 var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
@@ -110,6 +114,7 @@ You can use the company data api client to build your own queries without the qu
 In fact this is what the query objects use under the hood! 
 
 ```javascript
+ // Please see section 2.1 on creating the codatApiClient
 var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
 
 // You can also roll your own queries to the data api.
@@ -131,9 +136,9 @@ companyClient.get(datasets.BALANCE_SHEET, {
 
 If you need to refresh the data for a given company on demand, you cann use the provided refresh extensions and run them using the `codatApiClient` just like you can with the queries.
 
-NOTE: Please be aware this functionality is not currently supported by Codat's 'Sage 50' platform connection.
 
 ```javascript
+ // Please see section 2.1 on creating the codatApiClient
 import { RefreshAllDatasets } from 'codat-refresh';
 
 var companyId = 'ff36ff03-17de-47be-883a-5ceecbbc65ed';
