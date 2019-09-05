@@ -1,5 +1,3 @@
-import should from 'should'
-import { uat } from '../src/codat'
 import {
     constants,
     RefreshAllDatasets,

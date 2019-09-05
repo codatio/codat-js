@@ -1,4 +1,3 @@
-import should from 'should'
 import {
   constants,
   RulesQuery,
@@ -77,7 +76,7 @@ describe('Rules', () => {
         it(`should create ${ruleName} correct type for model object of rule`, () => {
           QUERY_OR_COMMAND_UNDER_TEST.generateModel().should.eql({
             type: type,
-            companyId: null,            
+            companyId: null,
             notifiers: {
               emails: null,
               webhook: null
@@ -100,7 +99,7 @@ describe('Rules', () => {
         () => CodatRuleOptions.create(),
         {
           type: 'Data sync completed',
-          companyId: null,          
+          companyId: null,
           notifiers: {
             emails: null,
             webhook: null
@@ -136,7 +135,7 @@ describe('Rules', () => {
         () => CodatRuleOptions.create().withWebHook(NOTIFY_WEBHOOK),
         {
           type: 'Data sync completed',
-          companyId: null,          
+          companyId: null,
           notifiers: {
             emails: null,
             webhook: NOTIFY_WEBHOOK
