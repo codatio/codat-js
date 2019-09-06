@@ -116,6 +116,10 @@ class CodatApiClient {
   companyDataClient (companyId) {
     return new Api(`${this.baseUrl}/${this.__companiesBaseUrl(companyId)}/data`, this.apiKey)
   }
+
+  dataConnectionDataClient (companyId, dataConnectionId) {
+    return new Api(`${this.baseUrl}/${this.__companiesBaseUrl(companyId)}/connections/${dataConnectionId}/data`, this.apiKey)
+  }
 }
 
 exports.CodatApiClient = CodatApiClient

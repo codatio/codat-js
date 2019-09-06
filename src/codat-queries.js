@@ -1,18 +1,20 @@
 
 const constants = {
   BALANCE_SHEET: 'financials/balanceSheet',
+  BANK_ACCOUNTS: 'bankAccounts',
+  BANK_STATEMENTS: 'bankStatements',
+  BANK_TRANSACTIONS: 'bankTransactions',
   BILLS: 'bills',
   BILL_PAYMENTS: 'billPayments',
   CHART_OF_ACCOUNTS: 'accounts',
+  COMPANY: 'info',
   CREDIT_NOTES: 'creditNotes',
   CUSTOMERS: 'customers',
   INVOICES: 'invoices',
+  ITEMS: 'items',
   PAYMENTS: 'payments',
   PROFIT_AND_LOSS: 'financials/profitAndLoss',
   SUPPLIERS: 'suppliers',
-  BANK_STATEMENTS: 'bankStatements',
-  COMPANY: 'info',
-  ITEMS: 'items',
   TAX_RATES: 'taxRates'
 }
 exports.constants = constants
@@ -39,6 +41,21 @@ class CodatDataQuery extends CodatQuery {
 
   run (apiClient) {
     return apiClient.companyDataClient(this.companyId).get(this.getResource(), this.generateArgs())
+  }
+}
+
+class CodatDataQueryWithDataConnection extends CodatQuery {
+  constructor (companyId, dataConnectionId) {
+    super()
+    this.companyId = companyId
+    this.dataConnectionId = dataConnectionId
+  }
+
+  generateArgs () { throw new Error('generateArgs is abstract') }
+  getResource () { throw new Error('getResource is abstract') }
+
+  run (apiClient) {
+    return apiClient.dataConnectionDataClient(this.companyId, this.dataConnectionId).get(this.getResource(), this.generateArgs())
   }
 }
 
@@ -86,9 +103,38 @@ class FlexibleQuery extends CodatDataQuery {
   }
 }
 
+class FlexibleQueryWithDataConnection extends CodatDataQueryWithDataConnection {
+  constructor (companyId, dataConnectionId, queryString) {
+    super(companyId, dataConnectionId)
+    this.queryString = queryString
+  }
+
+  generateArgs () {
+    return {
+      query: this.queryString
+    }
+  }
+}
+
 class FlexiblePagedQuery extends FlexibleQuery {
   constructor (companyId, queryString, pageNumber, pageSize) {
     super(companyId, queryString)
+    this.pageNumber = pageNumber
+    this.pageSize = pageSize
+  }
+
+  generateArgs () {
+    return {
+      query: this.queryString,
+      page: this.pageNumber,
+      pageSize: this.pageSize
+    }
+  }
+}
+
+class FlexiblePagedQueryWithDataConnection extends FlexibleQueryWithDataConnection {
+  constructor (companyId, dataConnectionId, queryString, pageNumber, pageSize) {
+    super(companyId, dataConnectionId, queryString)
     this.pageNumber = pageNumber
     this.pageSize = pageSize
   }
@@ -112,6 +158,33 @@ class AccountsQuery extends CodatDataQuery {
   }
 }
 exports.AccountsQuery = AccountsQuery
+
+class BankAccountsQuery extends FlexiblePagedQueryWithDataConnection{
+  generateArgs () {
+    return { }
+  }
+  
+  getResource () {
+    return constants.BANK_ACCOUNTS
+  }
+}
+exports.BankAccountsQuery = BankAccountsQuery
+
+class BankAccountTransactionsQuery extends FlexiblePagedQueryWithDataConnection{
+  constructor (companyId, dataConnectionId, bankAccountId, queryString, pageNumber, pageSize) {
+    super(companyId, dataConnectionId, queryString, pageNumber, pageSize)
+    this.bankAccountId = bankAccountId
+  }
+
+  generateArgs () {
+    return { }
+  }
+  
+  getResource () {
+    return `${constants.BANK_ACCOUNTS}/${this.bankAccountId}/${constants.BANK_TRANSACTIONS}`
+  }
+}
+exports.BankAccountTransactionsQuery = BankAccountTransactionsQuery
 
 class BillsQuery extends FlexiblePagedQuery {
   getResource () {

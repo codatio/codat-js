@@ -69,7 +69,7 @@ describe('Api client providers', () => {
       })
 
       it('should have correct base url', () => {
-        API_UNDER_TEST.__baseUrl.should.be.exactly('https://api-uat.codat.io/companies/' + TEST_COMPANY_ID + '/data')
+        API_UNDER_TEST.__baseUrl.should.be.exactly(`https://api-uat.codat.io/companies/${TEST_COMPANY_ID}/data`)
       })
 
       it('should have given api key', () => {
@@ -103,7 +103,7 @@ describe('Api client providers', () => {
       })
 
       it('should have correct base url', () => {
-        API_UNDER_TEST.__baseUrl.should.be.exactly('https://api-uat.codat.io/companies/' + TEST_COMPANY_ID + '/connections/' + TEST_DATACONNECTION_ID + '/data')
+        API_UNDER_TEST.__baseUrl.should.be.exactly(`https://api-uat.codat.io/companies/${TEST_COMPANY_ID}/connections/${TEST_DATACONNECTION_ID}/data`)
       })
 
       it('should have given api key', () => {
@@ -160,7 +160,7 @@ describe('Api client providers', () => {
       })
 
       it('should have correct base url', () => {
-        API_UNDER_TEST.__baseUrl.should.be.exactly('https://api.codat.io/companies/' + TEST_COMPANY_ID + '/data')
+        API_UNDER_TEST.__baseUrl.should.be.exactly(`https://api.codat.io/companies/${TEST_COMPANY_ID}/data`)
       })
 
       it('should have given api key', () => {
@@ -194,7 +194,7 @@ describe('Api client providers', () => {
       })
 
       it('should have correct base url', () => {
-        API_UNDER_TEST.__baseUrl.should.be.exactly('https://api-uat.codat.io/companies/' + TEST_COMPANY_ID + '/connections/' + TEST_DATACONNECTION_ID + '/data')
+        API_UNDER_TEST.__baseUrl.should.be.exactly(`https://api.codat.io/companies/${TEST_COMPANY_ID}/connections/${TEST_DATACONNECTION_ID}/data`)
       })
 
       it('should have given api key', () => {

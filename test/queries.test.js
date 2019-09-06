@@ -5,6 +5,8 @@ import {
     BalanceSheetQuery,
     ProfitAndLossQuery,
     AccountsQuery,
+    BankAccountsQuery,
+    BankAccountTransactionsQuery,
     InvoicesQuery,
     InvoicePdfQuery,
     CreditNotesQuery,
@@ -20,6 +22,7 @@ import {
 describe('Queries', () => {
   const COMPANY_ID = 'COMPANY_ID'
   const INVOICE_ID = 'INVOICE_ID'
+  const TEST_DATACONNECTION_ID = 'dadadada-0000-4000-0000-0000000c0da7'
 
   let QUERY_UNDER_TEST = null
 
@@ -89,6 +92,44 @@ describe('Queries', () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
                         COMPANY_ID,
+                        QUERY_STRING,
+                        PAGE_NUMBER,
+                        PAGE_SIZE)
+        })
+
+        it(`should direct to ${queryName} resource`, () => {
+          QUERY_UNDER_TEST.getResource().should.be.exactly(resourceRoute)
+        })
+
+        it(`should provide ${queryName} argument object`, () => {
+          QUERY_UNDER_TEST.generateArgs().should.eql({
+            query: QUERY_STRING,
+            page: PAGE_NUMBER,
+            pageSize: PAGE_SIZE
+          })
+        })
+      })
+    })
+  })
+
+  describe('flexible with data connection', () => {
+    const QUERY_STRING = "Property1<100,Property2>100,Property3='value'"
+    const PAGE_SIZE = 1000
+    const PAGE_NUMBER = 1;
+
+    [
+      [BankAccountsQuery, constants.BANK_ACCOUNTS],
+      [BankAccountTransactionsQuery, constants.BANK_TRANSACTIONS]
+    ].forEach(queryTestParameters => {
+      const queryName = queryTestParameters[0].name
+      const QueryConstructor = queryTestParameters[0]
+      const resourceRoute = queryTestParameters[1]
+
+      describe(queryName, () => {
+        beforeEach(() => {
+          QUERY_UNDER_TEST = new QueryConstructor(
+                        COMPANY_ID,
+                        TEST_DATACONNECTION_ID,
                         QUERY_STRING,
                         PAGE_NUMBER,
                         PAGE_SIZE)
