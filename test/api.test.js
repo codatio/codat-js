@@ -7,7 +7,7 @@ describe('Api client providers', () => {
   const TEST_DATACONNECTION_ID = 'dadadada-0000-4000-0000-0000000c0da7'
   let API_UNDER_TEST = null
 
-  describe('api client selctor', () => {
+  describe('api client selector', () => {
     it('uat should exist', () => {
       should.exist(apiClient('uat'))
     })

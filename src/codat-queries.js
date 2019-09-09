@@ -148,6 +148,15 @@ class FlexiblePagedQueryWithDataConnection extends FlexibleQueryWithDataConnecti
   }
 }
 
+class FlexiblePagedQueryWithDataConnectionAndItemId extends FlexiblePagedQueryWithDataConnection {
+  constructor (companyId, dataConnectionId, itemId, queryString, pageNumber, pageSize) {
+    super(companyId, dataConnectionId, queryString)
+    this.pageNumber = pageNumber
+    this.pageSize = pageSize
+    this.itemId = itemId
+  }
+}
+
 class AccountsQuery extends CodatDataQuery {
   generateArgs () {
     return { }
@@ -159,29 +168,20 @@ class AccountsQuery extends CodatDataQuery {
 }
 exports.AccountsQuery = AccountsQuery
 
-class BankAccountsQuery extends FlexiblePagedQueryWithDataConnection{
-  generateArgs () {
-    return { }
-  }
-  
+class BankAccountsQuery extends FlexiblePagedQueryWithDataConnection{  
   getResource () {
     return constants.BANK_ACCOUNTS
   }
 }
 exports.BankAccountsQuery = BankAccountsQuery
 
-class BankAccountTransactionsQuery extends FlexiblePagedQueryWithDataConnection{
+class BankAccountTransactionsQuery extends FlexiblePagedQueryWithDataConnectionAndItemId{
   constructor (companyId, dataConnectionId, bankAccountId, queryString, pageNumber, pageSize) {
-    super(companyId, dataConnectionId, queryString, pageNumber, pageSize)
-    this.bankAccountId = bankAccountId
-  }
-
-  generateArgs () {
-    return { }
+    super(companyId, dataConnectionId, bankAccountId, queryString, pageNumber, pageSize)
   }
   
   getResource () {
-    return `${constants.BANK_ACCOUNTS}/${this.bankAccountId}/${constants.BANK_TRANSACTIONS}`
+    return `${constants.BANK_ACCOUNTS}/${this.itemId}/${constants.BANK_TRANSACTIONS}`
   }
 }
 exports.BankAccountTransactionsQuery = BankAccountTransactionsQuery
