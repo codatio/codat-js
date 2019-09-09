@@ -7,12 +7,18 @@ import {
   AccountsQuery,
   BankAccountsQuery,
   BankAccountTransactionsQuery,
+  InvoiceAttachmentsQuery,
+  InvoiceSpecificAttachmentQuery,
+  InvoiceDownloadAttachmentQuery,
   InvoicesQuery,
   InvoicePdfQuery,
   CreditNotesQuery,
   CustomersQuery,
   SuppliersQuery,
   BillsQuery,
+  BillAttachmentsQuery,
+  BillSpecificAttachmentQuery,
+  BillDownloadAttachmentQuery,
   CompanyQuery,
   PaymentsQuery,
   BankStatementsQuery,
@@ -40,9 +46,10 @@ const FAKE_API = () => {
 }
 
 describe('Queries', () => {
-  const COMPANY_ID = 'COMPANY_ID'
-  const INVOICE_ID = 'INVOICE_ID'
+  const TEST_COMPANY_ID = 'c0c0c0c0-0000-4000-0000-0000000c0da7'
+  const TEST_ITEM_ID = '10101010-0000-4000-0000-0000000c0da7'
   const TEST_DATACONNECTION_ID = 'dadadada-0000-4000-0000-0000000c0da7'
+  const TEST_ATTACHMENT_ID = 'a7a7a7a7-0000-4000-0000-0000000c0da7'
 
   let QUERY_UNDER_TEST = null
   let FAKE_API_CLIENT = null
@@ -63,7 +70,7 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-            COMPANY_ID,
+            TEST_COMPANY_ID,
             PERIOD_LENGTH,
             PERIODS_TO_COMPARE,
             START_MONTH);
@@ -120,7 +127,7 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-            COMPANY_ID,
+            TEST_COMPANY_ID,
             QUERY_STRING,
             PAGE_NUMBER,
             PAGE_SIZE);
@@ -163,7 +170,7 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-            COMPANY_ID,
+            TEST_COMPANY_ID,
             TEST_DATACONNECTION_ID,
             QUERY_STRING,
             PAGE_NUMBER,
@@ -208,7 +215,7 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-            COMPANY_ID,
+            TEST_COMPANY_ID,
             TEST_DATACONNECTION_ID,
             ITEM_ID,
             QUERY_STRING,
@@ -250,7 +257,7 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-            COMPANY_ID);
+            TEST_COMPANY_ID);
           FAKE_API_CLIENT = new FAKE_API();
         })
 
@@ -273,7 +280,7 @@ describe('Queries', () => {
 
   describe('basic with id', () => {
     [
-      [InvoicePdfQuery, `${constants.INVOICES}/${INVOICE_ID}/pdf`]
+      [InvoicePdfQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/pdf`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -282,8 +289,8 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-            COMPANY_ID,
-            INVOICE_ID
+            TEST_COMPANY_ID,
+            TEST_ITEM_ID
           );
           FAKE_API_CLIENT = new FAKE_API();
         })
@@ -300,6 +307,137 @@ describe('Queries', () => {
           QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
           FAKE_API_CLIENT.companyDataClientCalled.should.eql(true);
           FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false);
+        })
+      })
+    })
+  })
+
+  describe('list attachments', () => {
+    [
+      [InvoiceAttachmentsQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments`],
+      [BillAttachmentsQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments`]
+      // [CreditNotesQuery, constants.CREDIT_NOTES],
+      // [CustomersQuery, constants.CUSTOMERS],
+      // [SuppliersQuery, constants.SUPPLIERS],
+      // [BillsQuery, constants.BILLS],
+      // [PaymentsQuery, constants.PAYMENTS],
+      // [BankStatementsQuery, constants.BANK_STATEMENTS],
+      // [ItemsQuery, constants.ITEMS],
+      // [TaxRatesQuery, constants.TAX_RATES]
+    ].forEach(queryTestParameters => {
+      const queryName = queryTestParameters[0].name
+      const QueryConstructor = queryTestParameters[0]
+      const resourceRoute = queryTestParameters[1]
+
+      describe(queryName, () => {
+        beforeEach(() => {
+          QUERY_UNDER_TEST = new QueryConstructor(
+            TEST_COMPANY_ID,
+            TEST_DATACONNECTION_ID,
+            TEST_ITEM_ID);
+          FAKE_API_CLIENT = new FAKE_API();
+        })
+
+        it(`should direct to ${queryName} resource`, () => {
+          QUERY_UNDER_TEST.getResource().should.be.exactly(resourceRoute)
+        })
+
+        it(`should provide ${queryName} argument object`, () => {
+          QUERY_UNDER_TEST.generateArgs().should.eql({})
+        })
+
+        it('should use the data connection data client to run', () => {
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
+        })
+      })
+    })
+  })
+
+  describe('get specific attachment metadata', () => {
+    [
+      [InvoiceSpecificAttachmentQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`],
+      [BillSpecificAttachmentQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`]
+      // [CreditNotesQuery, constants.CREDIT_NOTES],
+      // [CustomersQuery, constants.CUSTOMERS],
+      // [SuppliersQuery, constants.SUPPLIERS],
+      // [BillsQuery, constants.BILLS],
+      // [PaymentsQuery, constants.PAYMENTS],
+      // [BankStatementsQuery, constants.BANK_STATEMENTS],
+      // [ItemsQuery, constants.ITEMS],
+      // [TaxRatesQuery, constants.TAX_RATES]
+    ].forEach(queryTestParameters => {
+      const queryName = queryTestParameters[0].name
+      const QueryConstructor = queryTestParameters[0]
+      const resourceRoute = queryTestParameters[1]
+
+      describe(queryName, () => {
+        beforeEach(() => {
+          QUERY_UNDER_TEST = new QueryConstructor(
+            TEST_COMPANY_ID,
+            TEST_DATACONNECTION_ID,
+            TEST_ITEM_ID,
+            TEST_ATTACHMENT_ID);
+          FAKE_API_CLIENT = new FAKE_API();
+        })
+
+        it(`should direct to ${queryName} resource`, () => {
+          QUERY_UNDER_TEST.getResource().should.be.exactly(resourceRoute)
+        })
+
+        it(`should provide ${queryName} argument object`, () => {
+          QUERY_UNDER_TEST.generateArgs().should.eql({})
+        })
+
+        it('should use the data connection data client to run', () => {
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
+        })
+      })
+    })
+  })
+
+  describe('download attachment', () => {
+    [
+      [InvoiceDownloadAttachmentQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`],
+      [BillDownloadAttachmentQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
+      // [CreditNotesQuery, constants.CREDIT_NOTES],
+      // [CustomersQuery, constants.CUSTOMERS],
+      // [SuppliersQuery, constants.SUPPLIERS],
+      // [BillsQuery, constants.BILLS],
+      // [PaymentsQuery, constants.PAYMENTS],
+      // [BankStatementsQuery, constants.BANK_STATEMENTS],
+      // [ItemsQuery, constants.ITEMS],
+      // [TaxRatesQuery, constants.TAX_RATES]
+    ].forEach(queryTestParameters => {
+      const queryName = queryTestParameters[0].name
+      const QueryConstructor = queryTestParameters[0]
+      const resourceRoute = queryTestParameters[1]
+
+      describe(queryName, () => {
+        beforeEach(() => {
+          QUERY_UNDER_TEST = new QueryConstructor(
+            TEST_COMPANY_ID,
+            TEST_DATACONNECTION_ID,
+            TEST_ITEM_ID,
+            TEST_ATTACHMENT_ID);
+          FAKE_API_CLIENT = new FAKE_API();
+        })
+
+        it(`should direct to ${queryName} resource`, () => {
+          QUERY_UNDER_TEST.getResource().should.be.exactly(resourceRoute)
+        })
+
+        it(`should provide ${queryName} argument object`, () => {
+          QUERY_UNDER_TEST.generateArgs().should.eql({})
+        })
+
+        it('should use the data connection data client to run', () => {
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
         })
       })
     })
