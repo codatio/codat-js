@@ -116,19 +116,19 @@ class FlexibleQueryWithDataConnection extends CodatDataQueryWithDataConnection {
   }
 }
 
-class CodatDataQueryWithDataConnectionAndItemId extends CodatDataQueryWithDataConnection {
-  constructor(companyId, dataConnectionId, itemId) {
+class CodatDataQueryWithDataConnectionAndRecordId extends CodatDataQueryWithDataConnection {
+  constructor(companyId, dataConnectionId, recordId) {
     super(companyId, dataConnectionId)
-    this.itemId = itemId
+    this.recordId = recordId
   }
   generateArgs() {
     return {}
   }
 }
 
-class AttachmentsQuery extends CodatDataQueryWithDataConnectionAndItemId {
-  constructor(companyId, dataConnectionId, dataType, itemId) {
-    super(companyId, dataConnectionId, itemId)
+class AttachmentsQuery extends CodatDataQueryWithDataConnectionAndRecordId {
+  constructor(companyId, dataConnectionId, dataType, recordId) {
+    super(companyId, dataConnectionId, recordId)
     if (Object.keys(constants).includes(dataType) === false) {
       throw new Error(`Data type ${dataType} is not valid.`)
     }
@@ -139,26 +139,26 @@ class AttachmentsQuery extends CodatDataQueryWithDataConnectionAndItemId {
 
 class ListAttachmentsMetadataQuery extends AttachmentsQuery {
   getResource() {
-    return `${this.dataTypePath}/${this.itemId}/attachments`
+    return `${this.dataTypePath}/${this.recordId}/attachments`
   }
 }
 
 class SpecificAttachmentQuery extends AttachmentsQuery {
-  constructor(companyId, dataConnectionId, dataType, itemId, attachmentId) {
-    super(companyId, dataConnectionId, dataType, itemId)
+  constructor(companyId, dataConnectionId, dataType, recordId, attachmentId) {
+    super(companyId, dataConnectionId, dataType, recordId)
     this.attachmentId = attachmentId
   }
 }
 
 class ListSpecificAttachmentMetadataQuery extends SpecificAttachmentQuery {
   getResource() {
-    return `${this.dataTypePath}/${this.itemId}/attachments/${this.attachmentId}`
+    return `${this.dataTypePath}/${this.recordId}/attachments/${this.attachmentId}`
   }
 }
 
 class DownloadAttachmentQuery extends SpecificAttachmentQuery {
   getResource() {
-    return `${this.dataTypePath}/${this.itemId}/attachments/${this.attachmentId}/download`
+    return `${this.dataTypePath}/${this.recordId}/attachments/${this.attachmentId}/download`
   }
 }
 
@@ -194,12 +194,12 @@ class FlexiblePagedQueryWithDataConnection extends FlexibleQueryWithDataConnecti
   }
 }
 
-class FlexiblePagedQueryWithDataConnectionAndItemId extends FlexiblePagedQueryWithDataConnection {
-  constructor(companyId, dataConnectionId, itemId, queryString, pageNumber, pageSize) {
+class FlexiblePagedQueryWithDataConnectionAndRecordId extends FlexiblePagedQueryWithDataConnection {
+  constructor(companyId, dataConnectionId, recordId, queryString, pageNumber, pageSize) {
     super(companyId, dataConnectionId, queryString)
     this.pageNumber = pageNumber
     this.pageSize = pageSize
-    this.itemId = itemId
+    this.recordId = recordId
   }
 }
 
@@ -221,13 +221,13 @@ class BankAccountsQuery extends FlexiblePagedQueryWithDataConnection {
 }
 exports.BankAccountsQuery = BankAccountsQuery
 
-class BankAccountTransactionsQuery extends FlexiblePagedQueryWithDataConnectionAndItemId {
+class BankAccountTransactionsQuery extends FlexiblePagedQueryWithDataConnectionAndRecordId {
   constructor(companyId, dataConnectionId, bankAccountId, queryString, pageNumber, pageSize) {
     super(companyId, dataConnectionId, bankAccountId, queryString, pageNumber, pageSize)
   }
 
   getResource() {
-    return `${constants.BANK_ACCOUNTS}/${this.itemId}/${constants.BANK_TRANSACTIONS}`
+    return `${constants.BANK_ACCOUNTS}/${this.recordId}/${constants.BANK_TRANSACTIONS}`
   }
 }
 exports.BankAccountTransactionsQuery = BankAccountTransactionsQuery
