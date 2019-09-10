@@ -1,5 +1,3 @@
-import should from 'should'
-import { uat, apiClient } from '../src/codat'
 import {
   constants,
   BalanceSheetQuery,
@@ -35,15 +33,15 @@ import {
 const FAKE_API = () => {
   return {
     companyDataClientCalled: false,
-    companyDataClient(companyId) {
-      this.companyDataClientCalled = true;
+    companyDataClient (companyId) {
+      this.companyDataClientCalled = true
       return {
         get: resource => true
       }
     },
     dataConnectionDataClientCalled: false,
-    dataConnectionDataClient(companyId, dataConnectionId) {
-      this.dataConnectionDataClientCalled = true;
+    dataConnectionDataClient (companyId, dataConnectionId) {
+      this.dataConnectionDataClientCalled = true
       return {
         get: resource => true
       }
@@ -79,9 +77,8 @@ describe('Queries', () => {
             TEST_COMPANY_ID,
             PERIOD_LENGTH,
             PERIODS_TO_COMPARE,
-            START_MONTH);
-          FAKE_API_CLIENT = new FAKE_API();
-
+            START_MONTH)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -97,9 +94,9 @@ describe('Queries', () => {
         })
 
         it('should use the company data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false)
         })
       })
     })
@@ -136,8 +133,8 @@ describe('Queries', () => {
             TEST_COMPANY_ID,
             QUERY_STRING,
             PAGE_NUMBER,
-            PAGE_SIZE);
-          FAKE_API_CLIENT = new FAKE_API();
+            PAGE_SIZE)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -153,17 +150,17 @@ describe('Queries', () => {
         })
 
         it('should use the company data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false)
         })
       })
     })
   })
 
   describe('flexible with data connection', () => {
-    const QUERY_STRING = "Property1<100,Property2>100,Property3='value'";
-    const PAGE_SIZE = 1000;
+    const QUERY_STRING = "Property1<100,Property2>100,Property3='value'"
+    const PAGE_SIZE = 1000
     const PAGE_NUMBER = 1;
 
     [
@@ -180,8 +177,8 @@ describe('Queries', () => {
             TEST_DATACONNECTION_ID,
             QUERY_STRING,
             PAGE_NUMBER,
-            PAGE_SIZE);
-          FAKE_API_CLIENT = new FAKE_API();
+            PAGE_SIZE)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -197,17 +194,17 @@ describe('Queries', () => {
         })
 
         it('should use the data connection data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false)
         })
       })
     })
   })
 
   describe('flexible with data connection and record ID', () => {
-    const QUERY_STRING = "Property1<100,Property2>100,Property3='value'";
-    const PAGE_SIZE = 1000;
+    const QUERY_STRING = "Property1<100,Property2>100,Property3='value'"
+    const PAGE_SIZE = 1000
     const PAGE_NUMBER = 1;
 
     [
@@ -225,8 +222,8 @@ describe('Queries', () => {
             TEST_RECORD_ID,
             QUERY_STRING,
             PAGE_NUMBER,
-            PAGE_SIZE);
-          FAKE_API_CLIENT = new FAKE_API();
+            PAGE_SIZE)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -242,9 +239,9 @@ describe('Queries', () => {
         })
 
         it('should use the data connection data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false)
         })
       })
     })
@@ -262,8 +259,8 @@ describe('Queries', () => {
       describe(queryName, () => {
         beforeEach(() => {
           QUERY_UNDER_TEST = new QueryConstructor(
-            TEST_COMPANY_ID);
-          FAKE_API_CLIENT = new FAKE_API();
+            TEST_COMPANY_ID)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -275,9 +272,9 @@ describe('Queries', () => {
         })
 
         it('should use the company data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false)
         })
       })
     })
@@ -296,8 +293,8 @@ describe('Queries', () => {
           QUERY_UNDER_TEST = new QueryConstructor(
             TEST_COMPANY_ID,
             TEST_RECORD_ID
-          );
-          FAKE_API_CLIENT = new FAKE_API();
+          )
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -309,9 +306,9 @@ describe('Queries', () => {
         })
 
         it('should use the company data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(false)
         })
       })
     })
@@ -319,10 +316,10 @@ describe('Queries', () => {
 
   describe('list attachments', () => {
     [
-      [InvoiceAttachmentsQuery, `${constants.INVOICES}/${TEST_RECORD_ID}/attachments`]
-      , [BillAttachmentsQuery, `${constants.BILLS}/${TEST_RECORD_ID}/attachments`]
-      , [CustomerAttachmentsQuery, `${constants.CUSTOMERS}/${TEST_RECORD_ID}/attachments`]
-      , [SupplierAttachmentsQuery, `${constants.SUPPLIERS}/${TEST_RECORD_ID}/attachments`]
+      [InvoiceAttachmentsQuery, `${constants.INVOICES}/${TEST_RECORD_ID}/attachments`],
+      [BillAttachmentsQuery, `${constants.BILLS}/${TEST_RECORD_ID}/attachments`],
+      [CustomerAttachmentsQuery, `${constants.CUSTOMERS}/${TEST_RECORD_ID}/attachments`],
+      [SupplierAttachmentsQuery, `${constants.SUPPLIERS}/${TEST_RECORD_ID}/attachments`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -333,8 +330,8 @@ describe('Queries', () => {
           QUERY_UNDER_TEST = new QueryConstructor(
             TEST_COMPANY_ID,
             TEST_DATACONNECTION_ID,
-            TEST_RECORD_ID);
-          FAKE_API_CLIENT = new FAKE_API();
+            TEST_RECORD_ID)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -346,9 +343,9 @@ describe('Queries', () => {
         })
 
         it('should use the data connection data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false)
         })
       })
     })
@@ -356,10 +353,10 @@ describe('Queries', () => {
 
   describe('get specific attachment metadata', () => {
     [
-      [InvoiceSpecificAttachmentQuery, `${constants.INVOICES}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`]
-      , [BillSpecificAttachmentQuery, `${constants.BILLS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`]
-      , [CustomerSpecificAttachmentQuery, `${constants.CUSTOMERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`]
-      , [SupplierSpecificAttachmentQuery, `${constants.SUPPLIERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`]
+      [InvoiceSpecificAttachmentQuery, `${constants.INVOICES}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`],
+      [BillSpecificAttachmentQuery, `${constants.BILLS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`],
+      [CustomerSpecificAttachmentQuery, `${constants.CUSTOMERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`],
+      [SupplierSpecificAttachmentQuery, `${constants.SUPPLIERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -371,8 +368,8 @@ describe('Queries', () => {
             TEST_COMPANY_ID,
             TEST_DATACONNECTION_ID,
             TEST_RECORD_ID,
-            TEST_ATTACHMENT_ID);
-          FAKE_API_CLIENT = new FAKE_API();
+            TEST_ATTACHMENT_ID)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -384,9 +381,9 @@ describe('Queries', () => {
         })
 
         it('should use the data connection data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false)
         })
       })
     })
@@ -394,10 +391,10 @@ describe('Queries', () => {
 
   describe('download attachment', () => {
     [
-      [InvoiceDownloadAttachmentQuery, `${constants.INVOICES}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
-      , [BillDownloadAttachmentQuery, `${constants.BILLS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
-      , [CustomerDownloadAttachmentQuery, `${constants.CUSTOMERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
-      , [SupplierDownloadAttachmentQuery, `${constants.SUPPLIERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
+      [InvoiceDownloadAttachmentQuery, `${constants.INVOICES}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`],
+      [BillDownloadAttachmentQuery, `${constants.BILLS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`],
+      [CustomerDownloadAttachmentQuery, `${constants.CUSTOMERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`],
+      [SupplierDownloadAttachmentQuery, `${constants.SUPPLIERS}/${TEST_RECORD_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -409,8 +406,8 @@ describe('Queries', () => {
             TEST_COMPANY_ID,
             TEST_DATACONNECTION_ID,
             TEST_RECORD_ID,
-            TEST_ATTACHMENT_ID);
-          FAKE_API_CLIENT = new FAKE_API();
+            TEST_ATTACHMENT_ID)
+          FAKE_API_CLIENT = new FAKE_API()
         })
 
         it(`should direct to ${queryName} resource`, () => {
@@ -422,9 +419,9 @@ describe('Queries', () => {
         })
 
         it('should use the data connection data client to run', () => {
-          QUERY_UNDER_TEST.run(FAKE_API_CLIENT);
-          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true);
-          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false);
+          QUERY_UNDER_TEST.run(FAKE_API_CLIENT)
+          FAKE_API_CLIENT.dataConnectionDataClientCalled.should.eql(true)
+          FAKE_API_CLIENT.companyDataClientCalled.should.eql(false)
         })
       })
     })

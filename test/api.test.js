@@ -75,7 +75,7 @@ describe('Api client providers', () => {
       it('should have given api key', () => {
         API_UNDER_TEST.__apiKey.should.be.exactly(TEST_API_KEY)
       })
-    });
+    })
 
     describe('data connection api', () => {
       beforeEach(() => {
@@ -109,7 +109,7 @@ describe('Api client providers', () => {
       it('should have given api key', () => {
         API_UNDER_TEST.__apiKey.should.be.exactly(TEST_API_KEY)
       })
-    });
+    })
   })
 
   describe('production', () => {
@@ -166,7 +166,7 @@ describe('Api client providers', () => {
       it('should have given api key', () => {
         API_UNDER_TEST.__apiKey.should.be.exactly(TEST_API_KEY)
       })
-    });
+    })
 
     describe('data connection api', () => {
       beforeEach(() => {
@@ -200,6 +200,6 @@ describe('Api client providers', () => {
       it('should have given api key', () => {
         API_UNDER_TEST.__apiKey.should.be.exactly(TEST_API_KEY)
       })
-    });
+    })
   })
 })
