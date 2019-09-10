@@ -14,7 +14,13 @@ import {
   InvoicePdfQuery,
   CreditNotesQuery,
   CustomersQuery,
+  CustomerAttachmentsQuery,
+  CustomerSpecificAttachmentQuery,
+  CustomerDownloadAttachmentQuery,
   SuppliersQuery,
+  SupplierAttachmentsQuery,
+  SupplierSpecificAttachmentQuery,
+  SupplierDownloadAttachmentQuery,
   BillsQuery,
   BillAttachmentsQuery,
   BillSpecificAttachmentQuery,
@@ -314,16 +320,10 @@ describe('Queries', () => {
 
   describe('list attachments', () => {
     [
-      [InvoiceAttachmentsQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments`],
-      [BillAttachmentsQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments`]
-      // [CreditNotesQuery, constants.CREDIT_NOTES],
-      // [CustomersQuery, constants.CUSTOMERS],
-      // [SuppliersQuery, constants.SUPPLIERS],
-      // [BillsQuery, constants.BILLS],
-      // [PaymentsQuery, constants.PAYMENTS],
-      // [BankStatementsQuery, constants.BANK_STATEMENTS],
-      // [ItemsQuery, constants.ITEMS],
-      // [TaxRatesQuery, constants.TAX_RATES]
+      [InvoiceAttachmentsQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments`]
+      , [BillAttachmentsQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments`]
+      , [CustomerAttachmentsQuery, `${constants.CUSTOMERS}/${TEST_ITEM_ID}/attachments`]
+      , [SupplierAttachmentsQuery, `${constants.SUPPLIERS}/${TEST_ITEM_ID}/attachments`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -357,16 +357,10 @@ describe('Queries', () => {
 
   describe('get specific attachment metadata', () => {
     [
-      [InvoiceSpecificAttachmentQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`],
-      [BillSpecificAttachmentQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`]
-      // [CreditNotesQuery, constants.CREDIT_NOTES],
-      // [CustomersQuery, constants.CUSTOMERS],
-      // [SuppliersQuery, constants.SUPPLIERS],
-      // [BillsQuery, constants.BILLS],
-      // [PaymentsQuery, constants.PAYMENTS],
-      // [BankStatementsQuery, constants.BANK_STATEMENTS],
-      // [ItemsQuery, constants.ITEMS],
-      // [TaxRatesQuery, constants.TAX_RATES]
+      [InvoiceSpecificAttachmentQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`]
+      , [BillSpecificAttachmentQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`]
+      , [CustomerSpecificAttachmentQuery, `${constants.CUSTOMERS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`]
+      , [SupplierSpecificAttachmentQuery, `${constants.SUPPLIERS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
@@ -401,16 +395,10 @@ describe('Queries', () => {
 
   describe('download attachment', () => {
     [
-      [InvoiceDownloadAttachmentQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`],
-      [BillDownloadAttachmentQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
-      // [CreditNotesQuery, constants.CREDIT_NOTES],
-      // [CustomersQuery, constants.CUSTOMERS],
-      // [SuppliersQuery, constants.SUPPLIERS],
-      // [BillsQuery, constants.BILLS],
-      // [PaymentsQuery, constants.PAYMENTS],
-      // [BankStatementsQuery, constants.BANK_STATEMENTS],
-      // [ItemsQuery, constants.ITEMS],
-      // [TaxRatesQuery, constants.TAX_RATES]
+      [InvoiceDownloadAttachmentQuery, `${constants.INVOICES}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
+      , [BillDownloadAttachmentQuery, `${constants.BILLS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
+      , [CustomerDownloadAttachmentQuery, `${constants.CUSTOMERS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
+      , [SupplierDownloadAttachmentQuery, `${constants.SUPPLIERS}/${TEST_ITEM_ID}/attachments/${TEST_ATTACHMENT_ID}/download`]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]

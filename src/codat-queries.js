@@ -318,12 +318,54 @@ class CustomersQuery extends FlexiblePagedQuery {
 }
 exports.CustomersQuery = CustomersQuery
 
+class CustomerAttachmentsQuery extends ListAttachmentsMetadataQuery {
+  constructor(companyId, dataConnectionId, CustomerId) {
+    super(companyId, dataConnectionId, 'CUSTOMERS', CustomerId)
+  }
+}
+exports.CustomerAttachmentsQuery = CustomerAttachmentsQuery
+
+class CustomerDownloadAttachmentQuery extends DownloadAttachmentQuery {
+  constructor(companyId, dataConnectionId, CustomerId, attachmentId) {
+    super(companyId, dataConnectionId, 'CUSTOMERS', CustomerId, attachmentId)
+  }
+}
+exports.CustomerDownloadAttachmentQuery = CustomerDownloadAttachmentQuery
+
+class CustomerSpecificAttachmentQuery extends ListSpecificAttachmentMetadataQuery {
+  constructor(companyId, dataConnectionId, CustomerId, attachmentId) {
+    super(companyId, dataConnectionId, 'CUSTOMERS', CustomerId, attachmentId)
+  }
+}
+exports.CustomerSpecificAttachmentQuery = CustomerSpecificAttachmentQuery
+
 class SuppliersQuery extends FlexiblePagedQuery {
   getResource() {
     return constants.SUPPLIERS
   }
 }
 exports.SuppliersQuery = SuppliersQuery
+
+class SupplierAttachmentsQuery extends ListAttachmentsMetadataQuery {
+  constructor(companyId, dataConnectionId, SupplierId) {
+    super(companyId, dataConnectionId, 'SUPPLIERS', SupplierId)
+  }
+}
+exports.SupplierAttachmentsQuery = SupplierAttachmentsQuery
+
+class SupplierDownloadAttachmentQuery extends DownloadAttachmentQuery {
+  constructor(companyId, dataConnectionId, SupplierId, attachmentId) {
+    super(companyId, dataConnectionId, 'SUPPLIERS', SupplierId, attachmentId)
+  }
+}
+exports.SupplierDownloadAttachmentQuery = SupplierDownloadAttachmentQuery
+
+class SupplierSpecificAttachmentQuery extends ListSpecificAttachmentMetadataQuery {
+  constructor(companyId, dataConnectionId, SupplierId, attachmentId) {
+    super(companyId, dataConnectionId, 'SUPPLIERS', SupplierId, attachmentId)
+  }
+}
+exports.SupplierSpecificAttachmentQuery = SupplierSpecificAttachmentQuery
 
 class PaymentsQuery extends FlexiblePagedQuery {
   getResource() {
