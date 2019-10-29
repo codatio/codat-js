@@ -46,7 +46,7 @@ var codatApiUat = codat.uat(apiKey);
 
 var codatApi = codat.apiClient(codat.constants.UAT)(apiKey);
 
-// Use whichever method suits your build pipleine the best.
+// Use whichever method suits your build pipeline the best.
 codatApiUat === codatApi;
 
 // Use codat.production for Production environment.
