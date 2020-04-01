@@ -222,10 +222,6 @@ class BankAccountsQuery extends FlexiblePagedQueryWithDataConnection {
 exports.BankAccountsQuery = BankAccountsQuery
 
 class BankAccountTransactionsQuery extends FlexiblePagedQueryWithDataConnectionAndRecordId {
-  constructor (companyId, dataConnectionId, bankAccountId, queryString, pageNumber, pageSize) {
-    super(companyId, dataConnectionId, bankAccountId, queryString, pageNumber, pageSize)
-  }
-
   getResource () {
     return `${constants.BANK_ACCOUNTS}/${this.recordId}/${constants.BANK_TRANSACTIONS}`
   }
