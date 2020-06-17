@@ -36,7 +36,7 @@ The API client is a handy object that exposes useful functionality from the Coda
 ```javascript
 // Import the module just like any other node dependancy.
 import { 
-    api as codat, 
+    apiClient as codat, 
     queries as codatQueries } from 'codat';
 
 var apiKey = '<YOUR API KEY HERE>';
@@ -50,7 +50,7 @@ var codatApi = codat.apiClient(codat.constants.UAT)(apiKey);
 codatApiUat === codatApi;
 
 // Use codat.production for Production environment.
-var codatApiUat = codat.production(apiKey);
+var codatApiProd = codat.production(apiKey);
 
 var codatApi = codat.apiClient(codat.constants.PRODUCTION)(apiKey);
 

@@ -15,7 +15,8 @@ const constants = {
   PAYMENTS: 'payments',
   PROFIT_AND_LOSS: 'financials/profitAndLoss',
   SUPPLIERS: 'suppliers',
-  TAX_RATES: 'taxRates'
+  TAX_RATES: 'taxRates',
+  TRACKING_CATEGORIES: 'trackingCategories'
 }
 exports.constants = constants
 
@@ -405,3 +406,10 @@ class BankStatementsQuery extends FlexiblePagedQuery {
   }
 }
 exports.BankStatementsQuery = BankStatementsQuery
+
+class TrackingCategoriesQuery extends FlexiblePagedQuery {
+  getResource () {
+    return constants.TRACKING_CATEGORIES
+  }
+}
+exports.TrackingCategoriesQuery = TrackingCategoriesQuery
