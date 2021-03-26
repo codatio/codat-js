@@ -2,10 +2,11 @@
 const constants = {
   BALANCE_SHEET: 'financials/balanceSheet',
   BANK_ACCOUNTS: 'bankAccounts',
-  BANK_STATEMENTS: 'bankStatements',
   BANK_TRANSACTIONS: 'bankTransactions',
   BILLS: 'bills',
+  BILL_CREDIT_NOTES: 'billCreditNotes',
   BILL_PAYMENTS: 'billPayments',
+  CASH_FLOW_STATEMENT: 'financials/cashFlowStatement',
   CHART_OF_ACCOUNTS: 'accounts',
   COMPANY: 'info',
   CREDIT_NOTES: 'creditNotes',
@@ -14,6 +15,7 @@ const constants = {
   ITEMS: 'items',
   PAYMENTS: 'payments',
   PROFIT_AND_LOSS: 'financials/profitAndLoss',
+  PURCHASE_ORDERS: 'purchaseOrders',
   SUPPLIERS: 'suppliers',
   TAX_RATES: 'taxRates',
   TRACKING_CATEGORIES: 'trackingCategories'
@@ -90,6 +92,13 @@ class ProfitAndLossQuery extends FinancialQuery {
   }
 }
 exports.ProfitAndLossQuery = ProfitAndLossQuery
+
+class CashFlowStatementQuery extends FinancialQuery {
+  getResource () {
+    return constants.CASH_FLOW_STATEMENT
+  }
+}
+exports.CashFlowStatementQuery = CashFlowStatementQuery
 
 class FlexibleQuery extends CodatDataQuery {
   constructor (companyId, queryString) {
@@ -400,16 +409,23 @@ class CompanyQuery extends CodatDataQuery {
 }
 exports.CompanyQuery = CompanyQuery
 
-class BankStatementsQuery extends FlexiblePagedQuery {
-  getResource () {
-    return constants.BANK_STATEMENTS
-  }
-}
-exports.BankStatementsQuery = BankStatementsQuery
-
 class TrackingCategoriesQuery extends FlexiblePagedQuery {
   getResource () {
     return constants.TRACKING_CATEGORIES
   }
 }
 exports.TrackingCategoriesQuery = TrackingCategoriesQuery
+
+class BillCreditNotesQuery extends FlexiblePagedQuery {
+  getResource () {
+    return constants.BILL_CREDIT_NOTES
+  }
+}
+exports.BillCreditNotesQuery = BillCreditNotesQuery
+
+class PurchaseOrdersQuery extends FlexiblePagedQuery {
+  getResource () {
+    return constants.PURCHASE_ORDERS
+  }
+}
+exports.PurchaseOrdersQuery = PurchaseOrdersQuery

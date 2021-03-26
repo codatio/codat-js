@@ -30,7 +30,8 @@ describe('Api client providers', () => {
       should.exist(API_UNDER_TEST)
     });
 
-    ['getCompanies',
+    [
+      'getCompanies',
       'addCompany',
       'getCompany',
       'updateCompany',
@@ -121,7 +122,8 @@ describe('Api client providers', () => {
       should.exist(API_UNDER_TEST)
     });
 
-    ['getCompanies',
+    [
+      'getCompanies',
       'addCompany',
       'getCompany',
       'updateCompany',
