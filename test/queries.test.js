@@ -28,7 +28,9 @@ import {
   BankStatementsQuery,
   ItemsQuery,
   TaxRatesQuery,
-  TrackingCategoriesQuery
+  TrackingCategoriesQuery,
+  BillCreditNotesQuery,
+  PurchaseOrdersQuery
 } from '../src/codat-queries'
 
 const FAKE_API = () => {
@@ -120,10 +122,11 @@ describe('Queries', () => {
       [SuppliersQuery, constants.SUPPLIERS],
       [BillsQuery, constants.BILLS],
       [PaymentsQuery, constants.PAYMENTS],
-      [BankStatementsQuery, constants.BANK_STATEMENTS],
       [ItemsQuery, constants.ITEMS],
       [TaxRatesQuery, constants.TAX_RATES],
-      [TrackingCategoriesQuery, constants.TRACKING_CATEGORIES]
+      [TrackingCategoriesQuery, constants.TRACKING_CATEGORIES],
+      [BillCreditNotesQuery, constants.BILL_CREDIT_NOTES],
+      [PurchaseOrdersQuery, constants.PURCHASE_ORDERS]
     ].forEach(queryTestParameters => {
       const queryName = queryTestParameters[0].name
       const QueryConstructor = queryTestParameters[0]
