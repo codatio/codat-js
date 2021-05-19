@@ -37,7 +37,8 @@ class Api {
       qs: args,
       json: true,
       headers: {
-        Authorization: `Basic ${btoa(this.__apiKey)}`
+        Authorization: `Basic ${btoa(this.__apiKey)}`,
+        'User-Agent': 'Codat-node-client/@@VERSION@@' // replaced by build with current version
       },
       method: method,
       body: body,
