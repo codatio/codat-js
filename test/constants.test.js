@@ -2,7 +2,7 @@ import { constants } from '../src/codat'
 import should from 'should'
 
 describe('Constants', () => {
-  it('should export constants obect', () => {
+  it('should export constants object', () => {
     should.exist(constants)
   })
 
